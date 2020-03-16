@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Front-end project fro Solity chat
+
 
 ## Available Scripts
 
