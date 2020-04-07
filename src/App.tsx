@@ -3,7 +3,45 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Feed from "./components/Feed/Feed";
+import ActiveUsersFeed from "./components/User/ActiveUsersFeed";
 
+/**
+ * Mocked date test-purpose only
+ */
+const users = [
+  {
+    userName: "Jane Doe",
+    userBio: "Architect and engineer. Very eager to meet new people",
+  },
+  {
+    userName: "Jane Doe",
+    userBio: "Architect and engineer. Very eager to meet new people",
+  },
+  {
+    userName: "Jane Doe",
+    userBio: "Architect and engineer. Very eager to meet new people",
+  },
+  {
+    userName: "Jane Doe",
+    userBio: "Architect and engineer. Very eager to meet new people",
+  },
+  {
+    userName: "Jane Doe",
+    userBio: "Architect and engineer. Very eager to meet new people",
+  },
+  {
+    userName: "Jane Doe",
+    userBio: "Architect and engineer. Very eager to meet new people",
+  },
+  {
+    userName: "Jane Doe",
+    userBio: "Architect and engineer. Very eager to meet new people",
+  },
+  {
+    userName: "Jane Doe",
+    userBio: "Architect and engineer. Very eager to meet new people",
+  },
+];
 /**
  * Mocked date test-purpose only
  */
@@ -71,6 +109,72 @@ const cards = [
 ];
 
 /**
+ * Mocked date test-purpose only
+ */
+const messages = [
+  {
+    messageStatus: 0,
+    messageSender: "Jane Doe",
+    messageContent:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    messageStatus: 0,
+    messageSender: "Jane Doe",
+    messageContent:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    messageStatus: 0,
+    messageSender: "Jane Doe",
+    messageContent:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    messageStatus: 0,
+    messageSender: "Jane Doe",
+    messageContent:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    messageStatus: 0,
+    messageSender: "Jane Doe",
+    messageContent:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    messageStatus: 0,
+    messageSender: "Jane Doe",
+    messageContent:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    messageStatus: 0,
+    messageSender: "Jane Doe",
+    messageContent:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    messageStatus: 0,
+    messageSender: "Jane Doe",
+    messageContent:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    messageStatus: 0,
+    messageSender: "Jane Doe",
+    messageContent:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    messageStatus: 0,
+    messageSender: "Jane Doe",
+    messageContent:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+];
+
+/**
  * @constructor
  * Generator for the navigation bar
  */
@@ -134,13 +238,13 @@ const Navigation = () => (
 const Switches = () => (
   <Switch>
     <Route path="/feed">
-      <Feed />
+      <Feed messages={messages} />
     </Route>
     <Route path="/users">
-      <h1>Hello 2</h1>
+      <ActiveUsersFeed users={users} />
     </Route>
     <Route path="/media">
-      <h1>Hello 2</h1>
+      <h1 className="m-2">The media manager is empty</h1>
     </Route>
     <Route path="/">
       <Home cards={cards} />
