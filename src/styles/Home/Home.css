@@ -1,7 +1,4 @@
 .home-screen {
-    width: 100%;
-    background-image: url('../assets/home-background.jpg');
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
 }
