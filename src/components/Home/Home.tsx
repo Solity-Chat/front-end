@@ -1,7 +1,6 @@
 import React from "react";
 import "../../styles/Home/Home.css";
-import { CardData } from "../Card/Card";
-import Card from "../Card/Card";
+import Card, { CardData } from "../Card/Card";
 
 export interface HomeProps {
   cards: CardData[];
@@ -25,6 +24,7 @@ const Home = (data: HomeProps) => (
             />
           ))}
         </div>
+        <div className="news"></div>
       </div>
     </div>
   </div>

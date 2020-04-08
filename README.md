@@ -1,7 +1,17 @@
-Front-end project fro Solity chat
+# Project purpose 
 
+# Main tasks for current sprint
+- [ ] Light / Dark mode enablement
+- [ ] Conversations routing
+- [ ] Login routing and modal
+- [ ] Debounced buttons
+- [ ] Isolate components 
+- [ ] Made reusable components folders / generic
+- [ ] Setup local storage for encrypted passwords like Chrome does
 
-## Available Scripts
+# React setup 
+
+### Available Scripts
 
 In the project directory, you can run:
 

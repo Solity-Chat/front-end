@@ -7,7 +7,7 @@
   },
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
+      "tsx": true
     },
     "sourceType": "module"
   },
@@ -22,18 +22,42 @@
     "valid-typeof": "warn",
     "quotes": [
       2,
-      "single"
+      "double"
     ],
     "semi": [
       "error",
-      "never"
-    ]
+      "always"
+    ],
+    "prefer-destructuring": ["error", {
+      "VariableDeclarator": {
+        "array": false,
+        "object": false
+      },
+      "AssignmentExpression": {
+        "array": true,
+        "object": false
+      }
+    }, {
+      "enforceForRenamedProperties": false
+    }],
+    "object-shorthand": ["error", "never"]
   },
   "parser": "babel-eslint",
-  "extends": "airbnb",
   "plugins": [
+    "import",
     "react",
-    "jsx-a11y",
-    "import"
-  ]
+    "@typescript-eslint"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    }
+  }
 }
