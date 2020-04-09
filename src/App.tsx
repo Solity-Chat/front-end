@@ -1,192 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Feed from "./components/Feed/Feed";
 import ActiveUsersFeed from "./components/User/ActiveUsersFeed";
 
-/**
- * Mocked date test-purpose only
- */
-const users = [
-  {
-    userName: "Jane Doe",
-    userBio: "Architect and engineer. Very eager to meet new people",
-  },
-  {
-    userName: "Jane Doe",
-    userBio: "Architect and engineer. Very eager to meet new people",
-  },
-  {
-    userName: "Jane Doe",
-    userBio: "Architect and engineer. Very eager to meet new people",
-  },
-  {
-    userName: "Jane Doe",
-    userBio: "Architect and engineer. Very eager to meet new people",
-  },
-  {
-    userName: "Jane Doe",
-    userBio: "Architect and engineer. Very eager to meet new people",
-  },
-  {
-    userName: "Jane Doe",
-    userBio: "Architect and engineer. Very eager to meet new people",
-  },
-  {
-    userName: "Jane Doe",
-    userBio: "Architect and engineer. Very eager to meet new people",
-  },
-  {
-    userName: "Jane Doe",
-    userBio: "Architect and engineer. Very eager to meet new people",
-  },
-];
-/**
- * Mocked date test-purpose only
- */
-const cards = [
-  {
-    cardTitle: "GUI Update 1",
-    cardContent:
-      "The latest GUI updated was an integration of the old GUI with the Electron.js technologies",
-    cardDate: "today",
-  },
-  {
-    cardTitle: "GUI Update 2",
-    cardContent:
-      "The latest GUI updated was an integration of the old GUI with the Electron.js technologies",
-    cardDate: "today",
-  },
-  {
-    cardTitle: "GUI Update 3",
-    cardContent:
-      "The latest GUI updated was an integration of the old GUI with the Electron.js technologies",
-    cardDate: "today",
-  },
-  {
-    cardTitle: "GUI Update 4",
-    cardContent:
-      "The latest GUI updated was an integration of the old GUI with the Electron.js technologies",
-    cardDate: "today",
-  },
-  {
-    cardTitle: "GUI Update 5",
-    cardContent:
-      "The latest GUI updated was an integration of the old GUI with the Electron.js technologies",
-    cardDate: "today",
-  },
-  {
-    cardTitle: "GUI Update 6",
-    cardContent:
-      "The latest GUI updated was an integration of the old GUI with the Electron.js technologies",
-    cardDate: "today",
-  },
-  {
-    cardTitle: "GUI Update 7",
-    cardContent:
-      "The latest GUI updated was an integration of the old GUI with the Electron.js technologies",
-    cardDate: "today",
-  },
-  {
-    cardTitle: "GUI Update 8",
-    cardContent:
-      "The latest GUI updated was an integration of the old GUI with the Electron.js technologies",
-    cardDate: "today",
-  },
-  {
-    cardTitle: "GUI Update 9",
-    cardContent:
-      "The latest GUI updated was an integration of the old GUI with the Electron.js technologies",
-    cardDate: "today",
-  },
-  {
-    cardTitle: "GUI Update 10",
-    cardContent:
-      "The latest GUI updated was an integration of the old GUI with the Electron.js technologies",
-    cardDate: "today",
-  },
-];
-
-/**
- * Mocked date test-purpose only
- */
-const messages = [
-  {
-    messageStatus: 0,
-    messageSender: "Jane Doe",
-    messageContent:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    messageStatus: 0,
-    messageSender: "Jane Doe",
-    messageContent:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    messageStatus: 0,
-    messageSender: "Jane Doe",
-    messageContent:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    messageStatus: 0,
-    messageSender: "Jane Doe",
-    messageContent:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    messageStatus: 0,
-    messageSender: "Jane Doe",
-    messageContent:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    messageStatus: 0,
-    messageSender: "Jane Doe",
-    messageContent:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    messageStatus: 0,
-    messageSender: "Jane Doe",
-    messageContent:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    messageStatus: 0,
-    messageSender: "Jane Doe",
-    messageContent:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    messageStatus: 0,
-    messageSender: "Jane Doe",
-    messageContent:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    messageStatus: 0,
-    messageSender: "Jane Doe",
-    messageContent:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-];
+import { messages } from "./mock-objects/mockedMessages";
+import { cards } from "./mock-objects/mockedUpdates";
+import { users } from "./mock-objects/mockedUsers";
 
 /**
  * @constructor
  * Generator for the navigation bar
  */
 const Navigation = () => {
-  const [mode, setMode] = useState("light");
-  const modeSwitcher = () => {
-    if (mode === "light") {
-      setMode("dark");
-    } else {
-      setMode("light");
-    }
-  };
   return (
     <div className="app-navigation">
       <nav className="navbar navbar-expand-sm">
@@ -201,7 +28,7 @@ const Navigation = () => {
           <li className="app-navigation-list-item">
             <button type="button" className="btn btn-primary">
               <Link to="/feed" className="app-navigation-link-item">
-                Feed
+                Feed <span className="badge badge-pill badge-info">6</span>
               </Link>
             </button>
           </li>
@@ -221,13 +48,12 @@ const Navigation = () => {
           </li>
         </ul>
       </nav>
-      <div className="mode">
+      <div className="features">
         <div className="custom-control custom-switch">
           <input
             type="checkbox"
             className="custom-control-input"
             id="customSwitches"
-            onClick={() => modeSwitcher()}
           />
           <label className="custom-control-label" htmlFor="customSwitches">
             <svg
@@ -274,7 +100,7 @@ const Navigation = () => {
 const Switches = () => (
   <Switch>
     <Route path="/feed">
-      <Feed messages={messages} />
+      <Feed />
     </Route>
     <Route path="/users">
       <ActiveUsersFeed users={users} />

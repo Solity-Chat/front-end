@@ -1,5 +1,37 @@
+:root {
+    --landscape-width: 50vh;
+}
+
 .home-screen {
     display: flex;
     justify-content: center;
 }
 
+.landscape {
+    width: auto;
+    height: var(--landscape-width);
+    display: flex;
+    opacity: .9;
+    justify-content: center;
+    background-image: url("../../assets/home-background.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.landscape-name {
+    margin-top: 20vh;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px;
+}
