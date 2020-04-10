@@ -1,8 +1,27 @@
+:root {
+    --conversation-body-width: 650px;
+}
+
+
 .conversation-messages {
     display: flex;
+    overflow-y: scroll;
+    height: var(--conversation-body-width);
 }
 
 .conversations {
     border-right: 2px solid dodgerblue;
     max-width: 30vh;
 }
+
+.typing-area {
+    display: flex;
+    margin-left: 30vh;
+    position: sticky;
+}
+
+.mobile-app-image {
+   height: 55vh;
+   width: 55vh;
+}
+

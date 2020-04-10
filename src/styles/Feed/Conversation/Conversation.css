@@ -1,3 +1,15 @@
 .conversation-body {
     display: flex;
 }
+
+.conversation-body-user-info {
+   position: sticky;
+}
+
+.conversation-body-messages {
+
+}
+
+.conversation-body-typing-area {
+    position: sticky;
+}

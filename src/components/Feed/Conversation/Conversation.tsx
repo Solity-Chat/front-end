@@ -9,8 +9,13 @@ export interface ConversationProps {
 
 const Conversation = (data: ConversationProps) => (
   <div className="conversation-body">
-    <h1>{data.conversationUser.userName}</h1>
-    <ul className="messages">
+    <div className="conversation-body-user-info">
+      <h1>{data.conversationUser.userName}</h1>
+      <span className="badge badge-pill badge-warning">Active 30 min ago</span>
+    </div>
+
+    <hr />
+    <div className="conversation-body-messages">
       {data.conversationMessages.map((message) => (
         <Message
           messageStatus={message.messageStatus}
@@ -18,7 +23,7 @@ const Conversation = (data: ConversationProps) => (
           messageContent={message.messageContent}
         />
       ))}
-    </ul>
+    </div>
   </div>
 );
 
