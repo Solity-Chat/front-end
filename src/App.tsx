@@ -5,7 +5,7 @@ import Home from "./components/Home/Home";
 import Feed from "./components/Feed/Feed";
 import ActiveUsersFeed from "./components/User/ActiveUsersFeed";
 
-import { messages } from "./mock-objects/mockedMessages";
+import { conversations } from "./mock-objects/mockedConversations";
 import { cards } from "./mock-objects/mockedUpdates";
 import { users } from "./mock-objects/mockedUsers";
 
@@ -100,7 +100,7 @@ const Navigation = () => {
 const Switches = () => (
   <Switch>
     <Route path="/feed">
-      <Feed />
+      <Feed conversations={conversations} />
     </Route>
     <Route path="/users">
       <ActiveUsersFeed users={users} />

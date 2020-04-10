@@ -3,7 +3,7 @@ import React from "react";
 export interface CardData {
   cardTitle: string;
   cardContent: string;
-  cardDate: string;
+  cardDate?: string;
 }
 
 const Card = (data: CardData) => (

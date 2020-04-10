@@ -1,6 +1,5 @@
-.messages {
+.conversation-messages {
     display: flex;
-    justify-content: center;
 }
 
 .conversations {

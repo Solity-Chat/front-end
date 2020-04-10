@@ -1,17 +1,17 @@
 import React from "react";
-import Message, { MessageProps } from "../../../components/Feed/Message";
-import { UserProps } from "../../../components/User/User";
+import Message, { MessageProps } from "../Message";
+import { UserProps } from "../../User/User";
 
-interface ConversationProps {
-  messages: MessageProps[];
-  user: UserProps;
+export interface ConversationProps {
+  conversationMessages: MessageProps[];
+  conversationUser: UserProps;
 }
 
 const Conversation = (data: ConversationProps) => (
-  <div className="main">
-    <h1>{data.user.userName}</h1>
+  <div className="conversation-body">
+    <h1>{data.conversationUser.userName}</h1>
     <ul className="messages">
-      {data.messages.map((message) => (
+      {data.conversationMessages.map((message) => (
         <Message
           messageStatus={message.messageStatus}
           messageSender={message.messageSender}
