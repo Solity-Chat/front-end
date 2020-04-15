@@ -1,9 +1,13 @@
 .conversation-body {
-    display: flex;
+
 }
 
 .conversation-body-user-info {
-   position: sticky;
+    position: fixed;
+    height: 100px;
+    width: 55vh;
+    z-index: 100000;
+    background-color: white;
 }
 
 .conversation-body-messages {
@@ -11,5 +15,8 @@
 }
 
 .conversation-body-typing-area {
-    position: sticky;
+    position: fixed;
+    width: 55vh;
+    bottom: 10px;
 }
+
