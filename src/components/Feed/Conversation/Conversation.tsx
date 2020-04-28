@@ -14,19 +14,21 @@ const Conversation = (data: ConversationProps) => {
   const user = data.conversationUser;
 
   const MessageHandler = () => {
-    let newMessage = {
-      messageStatus: 0,
-      messageSender: "Me",
-      messageContent: inputContent,
-    };
-    setMessages([...messages, newMessage]);
-    setInputContent("");
+    if (inputContent != "") {
+      let newMessage = {
+        messageStatus: 0,
+        messageSender: "Me",
+        messageContent: inputContent,
+      };
+      setMessages([...messages, newMessage]);
+      setInputContent("");
+    }
   };
 
   return (
     <div className="conversation-body container">
       <div className="conversation-body-user-info col">
-        <h1>{data.conversationUser.userName}</h1>
+        <h1>{user.userName}</h1>
       </div>
 
       <hr />

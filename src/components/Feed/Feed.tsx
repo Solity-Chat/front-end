@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import Conversation, { ConversationProps } from "./Conversation/Conversation";
 import "../../styles/Feed/Feed.css";
 import Card from "../Card/Card";
 import mobileAppImg from "../../assets/mobile-app.png";
 
+const DEFAULT_UNREAD_MESSAGES = 0;
+
 export interface FeedProps {
   conversations: ConversationProps[];
 }
 
+const initialUnreadMessages: Number[] = [];
+const PopulateDefault = (conversations: ConversationProps[]) => {
+  conversations.forEach((conversation) => initialUnreadMessages.push(0));
+};
+
 const Feed = (data: FeedProps) => {
   let { path, url } = useRouteMatch();
+  PopulateDefault(data.conversations);
+  let [unreadMessages, setUnreadMessages] = useState(initialUnreadMessages);
+
+  const CountUnreadMessages = (conversation: ConversationProps) => {
+    const unreadMessages = conversation.conversationMessages.filter(
+      (message) => message.messageStatus === 0
+    );
+    console.log(unreadMessages.length);
+    return unreadMessages.length;
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -21,7 +39,13 @@ const Feed = (data: FeedProps) => {
               <li className="list-group-item">
                 <Link to={`${url}/${conversation.conversationUser.userName}`}>
                   <b>{conversation.conversationUser.userName}</b>{" "}
-                  <span className="badge badge-pill badge-info">4</span>
+                  <span className="badge badge-pill badge-info">
+                    {
+                      unreadMessages[
+                        data.conversations.findIndex((c) => c === conversation)
+                      ]
+                    }
+                  </span>
                 </Link>
               </li>
             ))}
