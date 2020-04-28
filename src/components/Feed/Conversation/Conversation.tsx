@@ -9,38 +9,29 @@ export interface ConversationProps {
 }
 
 const Conversation = (data: ConversationProps) => {
-  const [inputContent, setInputContent] = useState("");
-  const [currentMessages, setCurrentMessages] = useState(
-    data.conversationMessages
-  );
+  let [messages, setMessages] = useState(data.conversationMessages);
+  let [inputContent, setInputContent] = useState("");
+  const user = data.conversationUser;
 
-  const typingAreaHandle = (event: React.FormEvent<HTMLInputElement>) => {
-    setInputContent(event.currentTarget.innerText);
+  const MessageHandler = () => {
+    let newMessage = {
+      messageStatus: 0,
+      messageSender: "Me",
+      messageContent: inputContent,
+    };
+    setMessages([...messages, newMessage]);
+    setInputContent("");
   };
 
-  const newMessageHandle = (event: React.FormEvent<HTMLButtonElement>) => {
-    const newMessages = [
-      ...currentMessages,
-      {
-        messageSender: "Andrei Popescu",
-        messageContent: inputContent,
-        messageStatus: 0,
-      },
-    ];
-    setCurrentMessages(newMessages);
-  };
   return (
     <div className="conversation-body container">
       <div className="conversation-body-user-info col">
         <h1>{data.conversationUser.userName}</h1>
-        <span className="badge badge-pill badge-warning">
-          Active 30 min ago
-        </span>
       </div>
 
       <hr />
       <div className="conversation-body-messages col">
-        {currentMessages.map((message) => (
+        {messages.map((message) => (
           <Message
             messageStatus={message.messageStatus}
             messageSender={message.messageSender}
@@ -52,14 +43,15 @@ const Conversation = (data: ConversationProps) => {
         <div className="input-group mb-3">
           <input
             type="text"
+            value={inputContent}
             className="form-control"
-            onChange={() => typingAreaHandle}
+            onChange={(event) => setInputContent(event.currentTarget.value)}
           />
           <div className="input-group-prepend">
             <button
               className="btn btn-outline-primary"
               type="button"
-              onClick={() => newMessageHandle}
+              onClick={() => MessageHandler()}
             >
               <svg
                 className="bi bi-cursor-fill"

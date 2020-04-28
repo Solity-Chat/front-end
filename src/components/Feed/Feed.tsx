@@ -11,7 +11,6 @@ export interface FeedProps {
 
 const Feed = (data: FeedProps) => {
   let { path, url } = useRouteMatch();
-
   return (
     <div className="container">
       <div className="row">
