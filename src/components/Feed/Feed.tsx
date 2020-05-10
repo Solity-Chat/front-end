@@ -13,7 +13,9 @@ export interface FeedProps {
 
 const initialUnreadMessages: Number[] = [];
 const PopulateDefault = (conversations: ConversationProps[]) => {
-  conversations.forEach((conversation) => initialUnreadMessages.push(0));
+  conversations.forEach((conversation) =>
+    initialUnreadMessages.push(DEFAULT_UNREAD_MESSAGES)
+  );
 };
 
 const Feed = (data: FeedProps) => {

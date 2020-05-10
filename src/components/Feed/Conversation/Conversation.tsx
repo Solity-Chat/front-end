@@ -14,7 +14,7 @@ const Conversation = (data: ConversationProps) => {
   const user = data.conversationUser;
 
   const MessageHandler = () => {
-    if (inputContent != "") {
+    if (inputContent !== "") {
       let newMessage = {
         messageStatus: 0,
         messageSender: "Me",

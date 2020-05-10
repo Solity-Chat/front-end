@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import Home from "./components/Home/Home";
 import Feed from "./components/Feed/Feed";
 import ActiveUsersFeed from "./components/User/ActiveUsersFeed";
+import Login from "./components/authentication/Login";
 
 import { conversations } from "./mock-objects/mockedConversations";
 import { cards } from "./mock-objects/mockedUpdates";
 import { users } from "./mock-objects/mockedUsers";
+import Error from "./components/Error";
 
 /**
  * @constructor
@@ -21,6 +29,13 @@ const Navigation = () => {
           <li className="app-navigation-list-item">
             <button type="button" className="btn btn-primary">
               <Link to="/" className="app-navigation-link-item">
+                Login
+              </Link>
+            </button>
+          </li>
+          <li className="app-navigation-list-item">
+            <button type="button" className="btn btn-primary">
+              <Link to="/home" className="app-navigation-link-item">
                 Home
               </Link>
             </button>
@@ -93,34 +108,53 @@ const Navigation = () => {
   );
 };
 
+interface SwitchesData {
+  authData: boolean;
+  authHandler: Function;
+}
 /**
  * Generate the switches for the main screen
  * @constructor
  */
-const Switches = () => (
+const Switches = (data: SwitchesData) => (
   <Switch>
     <Route path="/feed">
-      <Feed conversations={conversations} />
+      {data.authData ? <Feed conversations={conversations} /> : <Error />}
     </Route>
     <Route path="/users">
-      <ActiveUsersFeed users={users} />
+      {data.authData ? <ActiveUsersFeed users={users} /> : <Error />}
     </Route>
     <Route path="/media">
-      <h1 className="m-2">The media manager is empty</h1>
+      {data.authData ? (
+        <h1 className="m-2">The media manager is empty</h1>
+      ) : (
+        <Error />
+      )}
+    </Route>
+    <Route path="/home">
+      {data.authData ? <Home cards={cards} /> : <Error />}
     </Route>
     <Route path="/">
-      <Home cards={cards} />
+      <Login />
     </Route>
   </Switch>
 );
 
-const App = () => (
-  <Router>
-    <div className="app">
-      {Navigation()}
-      {Switches()}
-    </div>
-  </Router>
-);
+const App = () => {
+  let [authData, setAuthData] = useState(false);
+
+  const authHandler = (_authData: boolean) => {
+    setAuthData(_authData);
+  };
+
+  return (
+    <Router>
+      <div className="app">
+        {Navigation()}
+        {Switches({ authData, authHandler })}
+      </div>
+    </Router>
+  );
+};
 
 export default App;
