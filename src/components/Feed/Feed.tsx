@@ -1,35 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import Conversation, { ConversationProps } from "./Conversation/Conversation";
 import "../../styles/Feed/Feed.css";
 import Card from "../Card/Card";
 import mobileAppImg from "../../assets/mobile-app.png";
 
-const DEFAULT_UNREAD_MESSAGES = 0;
-
 export interface FeedProps {
   conversations: ConversationProps[];
 }
 
-const initialUnreadMessages: Number[] = [];
-const PopulateDefault = (conversations: ConversationProps[]) => {
-  conversations.forEach((conversation) =>
-    initialUnreadMessages.push(DEFAULT_UNREAD_MESSAGES)
-  );
-};
-
 const Feed = (data: FeedProps) => {
   let { path, url } = useRouteMatch();
-  PopulateDefault(data.conversations);
-  let [unreadMessages, setUnreadMessages] = useState(initialUnreadMessages);
-
-  const CountUnreadMessages = (conversation: ConversationProps) => {
-    const unreadMessages = conversation.conversationMessages.filter(
-      (message) => message.messageStatus === 0
-    );
-    console.log(unreadMessages.length);
-    return unreadMessages.length;
-  };
 
   return (
     <div className="container">
@@ -39,14 +20,10 @@ const Feed = (data: FeedProps) => {
           <ul className="list-group list-group-flush">
             {data.conversations.map((conversation) => (
               <li className="list-group-item">
-                <Link to={`${url}/${conversation.conversationUser.userName}`}>
-                  <b>{conversation.conversationUser.userName}</b>{" "}
+                <Link to={`${url}/${conversation.conversationUser2.userName}`}>
+                  <b>{conversation.conversationUser2.userName}</b>{" "}
                   <span className="badge badge-pill badge-info">
-                    {
-                      unreadMessages[
-                        data.conversations.findIndex((c) => c === conversation)
-                      ]
-                    }
+                    {conversation.conversationNumberOfMessages}
                   </span>
                 </Link>
               </li>
@@ -74,11 +51,16 @@ const Feed = (data: FeedProps) => {
             </Route>
             {data.conversations.map((conversation) => (
               <Route
-                path={`${path}/:${conversation.conversationUser.userName}`}
+                path={`${path}/:${conversation.conversationUser2.userName}`}
               >
                 <Conversation
                   conversationMessages={conversation.conversationMessages}
-                  conversationUser={conversation.conversationUser}
+                  conversationUser2={conversation.conversationUser2}
+                  conversationId={conversation.conversationId}
+                  conversationNumberOfMessages={
+                    conversation.conversationNumberOfMessages
+                  }
+                  conversationUser1={conversation.conversationUser1}
                 />
               </Route>
             ))}

@@ -1,32 +1,36 @@
 import React, { useState } from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Feed from "./components/Feed/Feed";
 import ActiveUsersFeed from "./components/User/ActiveUsersFeed";
 import Login from "./components/Authentication/Login";
 
-import { conversations } from "./mock-objects/mockedConversations";
-import { cards } from "./mock-objects/mockedUpdates";
-import { users } from "./mock-objects/mockedUsers";
 import Error from "./components/Error";
+import { UserProps } from "./components/User/User";
 
 export interface SwitchesData {
   authData: boolean;
   authHandler: Function;
+  userDataHandler: Function;
 }
 
 const App = () => {
   let [authData, setAuthData] = useState(false);
+  let [currentUserData, setCurrentUserData] = useState({
+    userId: "",
+    userName: "",
+    userBio: "",
+    userConversations: [],
+    userFriends: [],
+  });
 
-  const authHandler = (_authData: boolean) => {
-    setAuthData(_authData);
+  const authHandler = (authProcessData: boolean) => {
+    setAuthData(authProcessData);
+  };
+
+  const userDataHandler = (authProcessUserData: UserProps) => {
+    setCurrentUserData(authProcessUserData);
   };
 
   const Navigation = () => (
@@ -50,7 +54,8 @@ const App = () => {
           <li className="app-navigation-list-item">
             <button type="button" className="btn btn-primary">
               <Link to="/feed" className="app-navigation-link-item">
-                Feed <span className="badge badge-pill badge-info">6</span>
+                Feed{" "}
+                <span className="badge badge-pill badge-info">messages</span>
               </Link>
             </button>
           </li>
@@ -117,10 +122,18 @@ const App = () => {
   const Switches = (data: SwitchesData) => (
     <Switch>
       <Route path="/feed">
-        {data.authData ? <Feed conversations={conversations} /> : <Error />}
+        {data.authData ? (
+          <Feed conversations={currentUserData.userConversations} />
+        ) : (
+          <Error />
+        )}
       </Route>
       <Route path="/users">
-        {data.authData ? <ActiveUsersFeed users={users} /> : <Error />}
+        {data.authData ? (
+          <ActiveUsersFeed users={currentUserData.userFriends} />
+        ) : (
+          <Error />
+        )}
       </Route>
       <Route path="/media">
         {data.authData ? (
@@ -130,10 +143,10 @@ const App = () => {
         )}
       </Route>
       <Route path="/home">
-        {data.authData ? <Home cards={cards} /> : <Error />}
+        {data.authData ? <Home cards={[]} /> : <Error />}
       </Route>
       <Route path="/">
-        <Login authHandler={authHandler} />
+        <Login authHandler={authHandler} userDataHandler={userDataHandler} />
       </Route>
     </Switch>
   );
@@ -142,7 +155,7 @@ const App = () => {
     <Router>
       <div className="app">
         {Navigation()}
-        {Switches({ authData, authHandler })}
+        {Switches({ authData, authHandler, userDataHandler })}
       </div>
     </Router>
   );

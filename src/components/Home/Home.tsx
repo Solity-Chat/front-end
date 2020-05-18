@@ -38,6 +38,7 @@ const Home = (data: HomeProps) => (
         <div className="updates">
           {data.cards.map((card) => (
             <Card
+              key={card.cardDate}
               cardTitle={card.cardTitle}
               cardContent={card.cardContent}
               cardDate={card.cardDate}

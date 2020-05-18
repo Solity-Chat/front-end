@@ -3,8 +3,11 @@ import path from "../../assets/default-user.png";
 import "../../styles/User/User.css";
 
 export interface UserProps {
+  userId: string;
   userName: string;
   userBio: string;
+  userConversations: [];
+  userFriends: [];
 }
 
 const User = (data: UserProps) => (

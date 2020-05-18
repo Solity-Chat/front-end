@@ -4,14 +4,23 @@ import { UserProps } from "../../User/User";
 import "../../../styles/Feed/Conversation/Conversation.css";
 
 export interface ConversationProps {
+  conversationId: String;
+  conversationNumberOfMessages: Number;
+  /**
+   * Current User
+   */
+  conversationUser1: UserProps;
+  /**
+   * The user I am talking to in current conversation
+   */
+  conversationUser2: UserProps;
   conversationMessages: MessageProps[];
-  conversationUser: UserProps;
 }
 
 const Conversation = (data: ConversationProps) => {
   let [messages, setMessages] = useState(data.conversationMessages);
   let [inputContent, setInputContent] = useState("");
-  const user = data.conversationUser;
+  const user = data.conversationUser2;
 
   const MessageHandler = () => {
     if (inputContent !== "") {

@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../../styles/Login/Login.css";
 import {
-  createUserService,
-  getUserByNameService,
+  authenticateUser,
+  registerUser,
+  DEFAULT,
+  FAIL,
+  SUCCESS,
 } from "../../containers/AuthenticationService";
+import Card from "../Card/Card";
 
 export interface LoginProps {
   authHandler: Function;
+  userDataHandler: Function;
 }
 
 const Login = (data: LoginProps) => {
@@ -14,6 +19,7 @@ const Login = (data: LoginProps) => {
   let [password, setPassword] = useState("");
   let [bio, setBio] = useState("");
   let [hasAccount, setHasAccount] = useState(true);
+  let [requestStatus, setStatus] = useState(DEFAULT);
 
   const usernameOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(event.currentTarget.value);
@@ -32,11 +38,30 @@ const Login = (data: LoginProps) => {
   const submitHandler = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     if (hasAccount) {
-      const userData = await getUserByNameService(username, password);
-      console.log(userData["user_password"]);
+      const response = await authenticateUser(
+        username,
+        password,
+        data.userDataHandler
+      );
+      if (response == SUCCESS) {
+        setStatus(SUCCESS);
+        data.authHandler(true);
+      } else {
+        setStatus(FAIL);
+      }
     } else {
-      let response = await createUserService(username, password, bio);
-      console.log(response);
+      let response = await registerUser(
+        username,
+        password,
+        bio,
+        data.userDataHandler
+      );
+      if (response == SUCCESS) {
+        setStatus(SUCCESS);
+        data.authHandler(true);
+      } else {
+        setStatus(FAIL);
+      }
     }
   };
 
@@ -137,9 +162,36 @@ const Login = (data: LoginProps) => {
     </div>
   );
 
+  const ErrorScreen = () => (
+    <Card
+      cardTitle={"Authentication Failed"}
+      cardContent={
+        "If you don't have a valid account you must create one using the Sign Up button above!"
+      }
+    />
+  );
+  const SuccessScreen = () => (
+    <Card
+      cardTitle={"Authentication Successful"}
+      cardContent={"Welcome back!"}
+    />
+  );
+  const StatusScreen = () => {
+    switch (requestStatus) {
+      case DEFAULT:
+        break;
+      case SUCCESS:
+        return SuccessScreen();
+      case FAIL:
+        return ErrorScreen();
+      default:
+        break;
+    }
+  };
   return (
     <div className="container">
       {hasAccount === true ? LoginScreen() : SignUpScreen()}
+      <div> {StatusScreen()} </div>
     </div>
   );
 };
